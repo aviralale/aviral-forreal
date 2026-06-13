@@ -3,10 +3,11 @@
 import { cn } from "@/lib/utils";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { Menu, X } from "lucide-react";
-import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
+import { SiteLogo } from "@/components/layout/SiteLogo";
 import { ThemeToggle } from "@/components/ui/ThemeToggle";
+import Link from "next/link";
 
 const links = [
   { href: "/", label: "Writing" },
@@ -46,12 +47,10 @@ export function Navbar() {
             "color-mix(in srgb, var(--color-bg) 80%, transparent)",
         }}
       >
-        <Link
-          href="/"
-          className="rounded-full px-3 py-1 font-display text-lg italic text-text transition-colors duration-150 hover:text-accent"
-        >
-          Aviral, for real
-        </Link>
+        <SiteLogo
+          className="h-8 rounded-full px-3 py-1 transition-opacity duration-150 hover:opacity-90"
+          priority
+        />
 
         {/* Desktop links */}
         <div className="hidden items-center gap-1 sm:flex">
@@ -105,9 +104,7 @@ export function Navbar() {
             className="fixed inset-0 z-50 flex flex-col bg-bg sm:hidden"
           >
             <div className="flex h-20 items-center justify-between px-8">
-              <span className="font-display text-lg italic text-text">
-                Aviral, for real
-              </span>
+              <SiteLogo className="h-6" />
               <button
                 type="button"
                 aria-label="Close menu"

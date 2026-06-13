@@ -1,4 +1,5 @@
 import { Github, Instagram, Twitter } from "lucide-react";
+import { SiteLogo } from "@/components/layout/SiteLogo";
 import { PixelSprite } from "@/components/ui/PixelSprite";
 
 const socials = [
@@ -17,9 +18,7 @@ export function Footer() {
       <div className="mx-auto flex max-w-5xl flex-col items-center px-6 py-8 text-center">
         <PixelSprite name="cat" size={44} className="mb-3" />
 
-        <span className="font-display text-lg italic text-text">
-          Aviral, for real
-        </span>
+        <SiteLogo className="h-8" />
         <span className="smallcaps mt-1 text-xs text-muted">
           <a className="underline text-primary" href="https://buymemomo.com/aviral" target="_blank" rel="noreferrer noopener">
             Buy me momo

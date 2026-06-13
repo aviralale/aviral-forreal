@@ -37,6 +37,9 @@ export const metadata: Metadata = {
     template: "%s — Aviral, for real",
   },
   description: "Writing by Aviral Ale. Kathmandu, Nepal.",
+  icons: {
+    icon: "/favicon.ico",
+  },
   openGraph: {
     siteName: "Aviral, for real",
     locale: "en_US",
