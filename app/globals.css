@@ -189,6 +189,10 @@
   .pixelated {
     image-rendering: pixelated;
   }
+
+  .dark .site-logo-image {
+    filter: invert(1);
+  }
 }
 
 /* ----------------------------------------------------------------------------

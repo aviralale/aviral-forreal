@@ -17,7 +17,7 @@ export function SiteLogo({ className, priority }: SiteLogoProps) {
         width={1390}
         height={519}
         priority={priority}
-        className="block h-full w-auto select-none transition-[filter,opacity] duration-300 ease-out dark:invert"
+        className="site-logo-image block h-full w-auto select-none transition-[filter,opacity] duration-300 ease-out"
       />
     </Link>
   );
