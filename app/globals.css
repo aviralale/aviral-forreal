@@ -1,0 +1,705 @@
+@import "tailwindcss";
+
+/* ----------------------------------------------------------------------------
+   Aviral, for real — design system
+
+   Quiet, book-like, typographic. Everything is set in serif as if printed:
+   Cormorant for display, EB Garamond for the text hand. Light (warm paper) is
+   the default ground; dark is the same page by lamplight. The accent (red ink
+   in light, aged gold in dark) is used sparingly, for emphasis only.
+---------------------------------------------------------------------------- */
+
+/* Light (parchment) is the default so SSR paints paper with no flash.
+   next-themes adds `.light` / `.dark` to <html>. */
+:root,
+.light {
+  --color-bg: #f5f0e3; /* warm paper, a touch lighter for contrast */
+  --color-surface: #ece4d0; /* card / code ground */
+  --color-surface-2: #e3d9c1; /* hover states */
+  --color-border: #d3c6a8; /* soft tan rule */
+  --color-border-hover: #b8a884;
+  --color-text: #211d15; /* near-black warm ink — strong contrast */
+  --color-text-muted: #5f5544; /* readable faded ink */
+  --color-text-faint: #c4b794; /* watermark */
+  --color-accent: #8f2d20; /* oxblood — red ink */
+  --color-accent-hover: #a93a2b;
+
+  color-scheme: light;
+}
+
+/* Dark — the same page by lamplight: warm, never cold. */
+.dark {
+  --color-bg: #17130d; /* dark warm brown-black */
+  --color-surface: #211a11;
+  --color-surface-2: #2c2316;
+  --color-border: #382d1e;
+  --color-border-hover: #50402b;
+  --color-text: #f1e6cf; /* bright parchment ink */
+  --color-text-muted: #b3a382; /* readable faded gilt */
+  --color-text-faint: #3d3324;
+  --color-accent: #d4ad62; /* aged gold leaf, brighter */
+  --color-accent-hover: #e7c281;
+
+  color-scheme: dark;
+}
+
+/* Type scale + font hands */
+:root {
+  --text-xs: 0.8rem; /* small caps, folios */
+  --text-sm: 0.95rem;
+  --text-base: 1.125rem; /* 18px — comfortable reading size */
+  --text-lg: 1.25rem;
+  --text-xl: 1.45rem;
+  --text-2xl: 1.75rem;
+  --text-3xl: 2.15rem;
+  --text-4xl: 2.9rem;
+  --text-hero: clamp(2.7rem, 7vw, 4rem); /* fluid title-page size */
+
+  /* next/font sets --font-fraunces / --font-newsreader / --font-jetbrains on
+     <html>. Alias them to the semantic display/body/mono names used throughout
+     and exposed as Tailwind utilities below. */
+  --font-display: var(--font-fraunces), Georgia, "Times New Roman", serif;
+  --font-body: var(--font-newsreader), Georgia, "Times New Roman", serif;
+  --font-mono: var(--font-jetbrains), ui-monospace, "SF Mono", Menlo, monospace;
+}
+
+/* Expose tokens to Tailwind so utilities like `font-display`, `text-2xl`,
+   `bg-surface`, `text-muted`, `text-accent`, `border-border` exist. `inline`
+   keeps the utilities referencing the live CSS vars so theme switching works. */
+@theme inline {
+  --color-bg: var(--color-bg);
+  --color-surface: var(--color-surface);
+  --color-surface-2: var(--color-surface-2);
+  --color-border: var(--color-border);
+  --color-border-hover: var(--color-border-hover);
+  --color-text: var(--color-text);
+  --color-muted: var(--color-text-muted);
+  --color-faint: var(--color-text-faint);
+  --color-accent: var(--color-accent);
+  --color-accent-hover: var(--color-accent-hover);
+
+  --font-display: var(--font-display);
+  --font-body: var(--font-body);
+  --font-mono: var(--font-mono);
+
+  --text-xs: var(--text-xs);
+  --text-sm: var(--text-sm);
+  --text-base: var(--text-base);
+  --text-lg: var(--text-lg);
+  --text-xl: var(--text-xl);
+  --text-2xl: var(--text-2xl);
+  --text-3xl: var(--text-3xl);
+  --text-4xl: var(--text-4xl);
+  --text-hero: var(--text-hero);
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    background: var(--color-bg);
+    color: var(--color-text);
+    font-family: var(--font-body);
+    font-weight: 400;
+    font-size: var(--text-base);
+    line-height: 1.7;
+    /* Old-style figures — dates and counts read like a printed book. */
+    font-variant-numeric: oldstyle-nums proportional-nums;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
+
+  /* Paper grain — a faint fractal-noise tooth laid behind all content so the
+     page reads as a real sheet rather than a flat fill. It sits below content
+     (z-index: -1) and ignores the pointer, so text stays crisp. Multiply in
+     light gives the paper its fibre; a gentle screen in dark lets the grain
+     catch the lamplight. */
+  body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+    background-image: url("data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20width='220'%20height='220'%3E%3Cfilter%20id='n'%3E%3CfeTurbulence%20type='fractalNoise'%20baseFrequency='0.8'%20numOctaves='2'%20stitchTiles='stitch'/%3E%3CfeColorMatrix%20type='saturate'%20values='0'/%3E%3C/filter%3E%3Crect%20width='100%25'%20height='100%25'%20filter='url(%23n)'/%3E%3C/svg%3E");
+    opacity: 0.06;
+    mix-blend-mode: multiply;
+  }
+  .dark body::before {
+    opacity: 0.04;
+    mix-blend-mode: screen;
+  }
+
+  ::selection {
+    background: var(--color-accent);
+    color: var(--color-bg);
+  }
+
+  *:focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 2px;
+    border-radius: 1px;
+  }
+
+  /* Theme toggle: show the current mode's icon via the <html> theme class. */
+  .theme-icon-sun {
+    display: none;
+  }
+  .light .theme-icon-sun {
+    display: inline;
+  }
+  .light .theme-icon-moon {
+    display: none;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+}
+
+@layer utilities {
+  /* Hide scrollbar on horizontal rows while keeping scroll behavior. */
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* Marginalia / running-head hand: small caps, letter-spaced, faded ink. */
+  .smallcaps {
+    font-family: var(--font-body);
+    font-variant: small-caps;
+    letter-spacing: 0.12em;
+  }
+
+  /* Crisp pixel art — no smoothing when sprites scale up. */
+  .pixelated {
+    image-rendering: pixelated;
+  }
+}
+
+/* ----------------------------------------------------------------------------
+   Resting pets — idle bob in place, a hop on click, and a little symbol that floats up.
+---------------------------------------------------------------------------- */
+@keyframes pet-bob {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-2px);
+  }
+}
+.pet-bob {
+  animation: pet-bob 1.1s ease-in-out infinite;
+}
+
+@keyframes pet-hop {
+  0% {
+    transform: translateY(0);
+  }
+  30% {
+    transform: translateY(-16px);
+  }
+  55% {
+    transform: translateY(0);
+  }
+  72% {
+    transform: translateY(-6px);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+.pet-hop {
+  animation: pet-hop 0.55s ease;
+}
+
+@keyframes pet-pop {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, 0) scale(0.5);
+  }
+  20% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: translate(-50%, -42px) scale(1.1);
+  }
+}
+.pet-pop {
+  animation: pet-pop 0.9s ease-out forwards;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pet-bob,
+  .pet-hop {
+    animation: none;
+  }
+}
+
+/* ----------------------------------------------------------------------------
+   Hero scene — palette + ambient motion.
+
+   The pixel sprites paint with the global ink/paper tokens, which *invert*
+   between themes (so "snow" = the bg token would go dark at night). To make the
+   landscape look right in both modes we scope its own palette here: `k` becomes
+   the near rock / silhouette, `m` the lighter far range, `b` the snow + lit
+   openings, while the accent (sun, stupa eyes) is left to the theme.
+
+   Lightness order — light: sky▸snow▸far▸near(dark); dark: near▸far▸snow(bright)
+   over a near-black sky — a clean daytime sheet and a moonlit night. */
+.hero-scene {
+  --color-text: #2a2318; /* k — near rock / building silhouette */
+  --color-text-muted: #8a7a55; /* m — far range, shading */
+  --color-bg: #ece3cd; /* b — warm lit windows / doors */
+  --color-snow: #d8e6f4; /* s — cool bluish-white snow */
+}
+.dark .hero-scene {
+  --color-text: #5d4e34; /* near rock, visible on the night sky */
+  --color-text-muted: #8f7c52; /* hazier far range */
+  --color-bg: #e3d3a6; /* warm lit openings */
+  --color-snow: #cfe0f3; /* bright bluish-white moonlit snow */
+}
+
+/* Heritage structures sit in front of the dark range, so we paint them
+   *whitewashed* (which is also true to life — Boudhanath and Dharahara are
+   white): a light body that pops against the mountains, recessed dark openings,
+   a dark rim outline so they still read where they rise into the light sky, and
+   a soft cast shadow for elevation. `b` doubles as the openings + the rim. */
+.hero-heritage {
+  --color-text: #f1ebd9; /* k — whitewashed body */
+  --color-text-muted: #a8986f; /* m — roof / shading */
+  --color-bg: #2a2318; /* b — recessed openings + outline rim */
+  filter: drop-shadow(1px 0 0 var(--color-bg))
+    drop-shadow(-1px 0 0 var(--color-bg)) drop-shadow(0 1px 0 var(--color-bg))
+    drop-shadow(0 -1px 0 var(--color-bg)) drop-shadow(0 3px 3px rgba(20, 14, 6, 0.3));
+}
+.dark .hero-heritage {
+  --color-text: #ece0c2; /* whitewash, bright against the night */
+  --color-text-muted: #b3a074;
+  --color-bg: #161109; /* dark openings + outline */
+  filter: drop-shadow(1px 0 0 var(--color-bg))
+    drop-shadow(-1px 0 0 var(--color-bg)) drop-shadow(0 1px 0 var(--color-bg))
+    drop-shadow(0 -1px 0 var(--color-bg)) drop-shadow(0 3px 4px rgba(0, 0, 0, 0.5));
+}
+
+/* Each prayer flag flutters on its own, with a staggered delay (set inline per
+   flag) so a ripple travels along the string — the line itself stays put. */
+@keyframes flag-flutter {
+  0%,
+  100% {
+    transform: rotate(0deg) skewX(0deg) scaleY(1);
+  }
+  30% {
+    transform: rotate(2deg) skewX(8deg) scaleY(0.96);
+  }
+  65% {
+    transform: rotate(-1.5deg) skewX(-7deg) scaleY(0.98);
+  }
+}
+.flag-flutter {
+  transform-origin: top center;
+  animation: flag-flutter 2.4s ease-in-out infinite;
+}
+
+/* The sun's rays turn slowly around the still disc. */
+@keyframes sun-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+.sun-spin {
+  transform-origin: center;
+  animation: sun-spin 16s linear infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .flag-flutter,
+  .sun-spin {
+    animation: none;
+  }
+}
+
+/* ----------------------------------------------------------------------------
+   Paper & torn edges
+
+   The torn edge is an SVG displacement filter (#torn-edge / #torn-photo, mounted
+   once in the layout). We roughen a backing pseudo-element — not the content —
+   so text stays crisp while the sheet's border looks hand-torn.
+---------------------------------------------------------------------------- */
+.paper {
+  position: relative;
+  isolation: isolate;
+}
+.paper > * {
+  position: relative;
+  z-index: 1;
+}
+.paper::before {
+  content: "";
+  position: absolute;
+  inset: -3px;
+  z-index: 0;
+  background: var(--color-surface);
+  border: 1.5px solid var(--color-border);
+  filter: url(#torn-edge) drop-shadow(0 6px 10px rgba(20, 14, 6, 0.14));
+}
+.dark .paper::before {
+  filter: url(#torn-edge) drop-shadow(0 6px 12px rgba(0, 0, 0, 0.5));
+}
+
+/* A photo (or sprite) with hand-torn edges. Applied to the media element. */
+.torn-photo {
+  filter: url(#torn-photo) drop-shadow(0 5px 9px rgba(20, 14, 6, 0.18));
+}
+.dark .torn-photo {
+  filter: url(#torn-photo) drop-shadow(0 6px 12px rgba(0, 0, 0, 0.55));
+}
+
+/* Graceful fallback: if filters are unsupported, a slightly rotated card still
+   reads as a scrap of paper. */
+@supports not (filter: url(#torn-edge)) {
+  .paper::before,
+  .torn-photo {
+    filter: none;
+    border-radius: 2px;
+  }
+}
+
+/* ----------------------------------------------------------------------------
+   .post-body — the printed text block
+---------------------------------------------------------------------------- */
+.post-body {
+  font-family: var(--font-body);
+  font-size: 1.2rem;
+  line-height: 1.85;
+  color: var(--color-text);
+  /* Let punctuation hang into the margin where supported — a typeset edge. */
+  hanging-punctuation: first allow-end last;
+}
+
+.post-body h1,
+.post-body h2,
+.post-body h3,
+.post-body h4 {
+  font-family: var(--font-display);
+  font-weight: 600;
+  color: var(--color-text);
+  margin-top: 2.75rem;
+  margin-bottom: 1rem;
+  line-height: 1.25;
+  letter-spacing: 0.01em;
+  text-wrap: balance;
+}
+.post-body h1 {
+  font-size: var(--text-3xl);
+}
+.post-body h2 {
+  font-size: var(--text-2xl);
+}
+.post-body h3 {
+  font-size: var(--text-xl);
+}
+.post-body h4 {
+  font-size: var(--text-lg);
+}
+
+.post-body p {
+  margin-bottom: 1.5rem;
+  /* Avoid orphans/widows where supported — typeset, not ragged. */
+  text-wrap: pretty;
+}
+
+/* Illuminated initial — a rubricated drop cap (red ink in light, gold leaf in
+   dark) opening the article, the way a manuscript opens a chapter. */
+.article-body > p:first-of-type::first-letter {
+  float: left;
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 3.5em;
+  line-height: 0.74;
+  padding-right: 0.08em;
+  margin-top: 0.04em;
+  color: var(--color-accent);
+}
+
+.post-body a {
+  color: var(--color-text);
+  text-decoration: underline;
+  text-decoration-color: var(--color-accent);
+  text-underline-offset: 3px;
+  transition: color 150ms;
+}
+.post-body a:hover {
+  color: var(--color-accent);
+}
+
+/* Pull quote — large hanging quotation mark, set in the display hand. */
+.post-body blockquote {
+  position: relative;
+  margin: 2.5rem 0;
+  padding-left: 2rem;
+  border-left: 2px solid var(--color-accent);
+  color: var(--color-text-muted);
+  font-style: italic;
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  line-height: 1.5;
+}
+.post-body blockquote p {
+  margin-bottom: 0;
+  text-align: left;
+  hyphens: none;
+}
+
+.post-body code:not(pre code) {
+  font-family: var(--font-mono);
+  font-size: 0.82em;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: 3px;
+  padding: 0.12em 0.4em;
+}
+
+.post-body pre {
+  background: var(--color-surface) !important;
+  border: 1px solid var(--color-border);
+  border-radius: 4px;
+  padding: 1.25rem 1.5rem;
+  overflow-x: auto;
+  margin: 2rem 0;
+}
+.post-body pre code {
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  line-height: 1.65;
+  background: none;
+  border: none;
+  padding: 0;
+  color: inherit;
+}
+
+.post-body img {
+  width: 100%;
+  border-radius: 3px;
+  margin: 2.5rem 0;
+}
+
+.post-body ul,
+.post-body ol {
+  padding-left: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+.post-body ul {
+  list-style: disc;
+}
+.post-body ol {
+  list-style: decimal;
+}
+.post-body li {
+  margin-bottom: 0.5rem;
+  line-height: 1.7;
+}
+
+.post-body hr {
+  border: none;
+  border-top: 1px solid var(--color-border);
+  margin: 3rem 0;
+}
+
+.post-body table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 2rem;
+  font-size: var(--text-sm);
+}
+.post-body th,
+.post-body td {
+  border: 1px solid var(--color-border);
+  padding: 0.75rem 1rem;
+  text-align: left;
+  vertical-align: top;
+}
+.post-body th {
+  background: var(--color-surface);
+  font-variant: small-caps;
+  letter-spacing: 0.08em;
+  color: var(--color-text-muted);
+}
+
+.post-body strong {
+  font-weight: 600;
+  color: var(--color-text);
+}
+.post-body em {
+  font-style: italic;
+}
+
+/* ----------------------------------------------------------------------------
+   Syntax highlighting (highlight.js token classes via rehype-highlight).
+   Dark = GitHub Dark Dimmed palette, Light = GitHub Light palette. Scoped to
+   the theme class so switching themes recolors code with no runtime import.
+---------------------------------------------------------------------------- */
+.post-body .hljs {
+  color: inherit;
+  background: transparent;
+}
+
+/* GitHub Dark Dimmed */
+.dark .hljs-doctag,
+.dark .hljs-keyword,
+.dark .hljs-meta .hljs-keyword,
+.dark .hljs-template-tag,
+.dark .hljs-template-variable,
+.dark .hljs-type,
+.dark .hljs-variable.language_ {
+  color: #f47067;
+}
+.dark .hljs-title,
+.dark .hljs-title.class_,
+.dark .hljs-title.function_ {
+  color: #dcbdfb;
+}
+.dark .hljs-attr,
+.dark .hljs-attribute,
+.dark .hljs-literal,
+.dark .hljs-meta,
+.dark .hljs-number,
+.dark .hljs-operator,
+.dark .hljs-variable,
+.dark .hljs-selector-attr,
+.dark .hljs-selector-class,
+.dark .hljs-selector-id {
+  color: #6cb6ff;
+}
+.dark .hljs-regexp,
+.dark .hljs-string,
+.dark .hljs-meta .hljs-string {
+  color: #96d0ff;
+}
+.dark .hljs-built_in,
+.dark .hljs-symbol {
+  color: #f69d50;
+}
+.dark .hljs-comment,
+.dark .hljs-code,
+.dark .hljs-formula {
+  color: #768390;
+}
+.dark .hljs-name,
+.dark .hljs-quote,
+.dark .hljs-selector-tag,
+.dark .hljs-selector-pseudo {
+  color: #8ddb8c;
+}
+.dark .hljs-subst {
+  color: #adbac7;
+}
+.dark .hljs-section {
+  color: #316dca;
+  font-weight: 700;
+}
+.dark .hljs-bullet {
+  color: #eac55f;
+}
+.dark .hljs-emphasis {
+  font-style: italic;
+}
+.dark .hljs-strong {
+  font-weight: 700;
+}
+.dark .hljs-addition {
+  color: #b4f1b4;
+  background-color: #1b4721;
+}
+.dark .hljs-deletion {
+  color: #ffd8d3;
+  background-color: #78191b;
+}
+
+/* GitHub Light */
+.light .hljs-doctag,
+.light .hljs-keyword,
+.light .hljs-meta .hljs-keyword,
+.light .hljs-template-tag,
+.light .hljs-template-variable,
+.light .hljs-type,
+.light .hljs-variable.language_ {
+  color: #d73a49;
+}
+.light .hljs-title,
+.light .hljs-title.class_,
+.light .hljs-title.function_ {
+  color: #6f42c1;
+}
+.light .hljs-attr,
+.light .hljs-attribute,
+.light .hljs-literal,
+.light .hljs-meta,
+.light .hljs-number,
+.light .hljs-operator,
+.light .hljs-variable,
+.light .hljs-selector-attr,
+.light .hljs-selector-class,
+.light .hljs-selector-id {
+  color: #005cc5;
+}
+.light .hljs-regexp,
+.light .hljs-string,
+.light .hljs-meta .hljs-string {
+  color: #032f62;
+}
+.light .hljs-built_in,
+.light .hljs-symbol {
+  color: #e36209;
+}
+.light .hljs-comment,
+.light .hljs-code,
+.light .hljs-formula {
+  color: #6a737d;
+}
+.light .hljs-name,
+.light .hljs-quote,
+.light .hljs-selector-tag,
+.light .hljs-selector-pseudo {
+  color: #22863a;
+}
+.light .hljs-subst {
+  color: #24292e;
+}
+.light .hljs-section {
+  color: #005cc5;
+  font-weight: 700;
+}
+.light .hljs-bullet {
+  color: #735c0f;
+}
+.light .hljs-emphasis {
+  font-style: italic;
+}
+.light .hljs-strong {
+  font-weight: 700;
+}
+.light .hljs-addition {
+  color: #22863a;
+  background-color: #f0fff4;
+}
+.light .hljs-deletion {
+  color: #b31d28;
+  background-color: #ffeef0;
+}
