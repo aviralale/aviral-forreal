@@ -59,7 +59,7 @@ export function Navbar() {
               key={link.href}
               href={link.href}
               className={cn(
-                "smallcaps rounded-full px-3 py-1 text-sm transition-colors duration-150",
+                "smallcaps rounded-full px-3 py-1 text-sm leading-none transition-colors duration-150",
                 isActive(pathname, link.href)
                   ? "bg-surface-2 text-accent"
                   : "text-text hover:bg-surface-2 hover:text-accent",

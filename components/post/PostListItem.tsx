@@ -59,7 +59,7 @@ export function PostListItem({
           </h2>
 
           {post.excerpt && (
-            <p className="mt-1.5 line-clamp-2 text-base leading-relaxed text-muted">
+            <p className="mt-1.5 line-clamp-2 hyphens-auto text-justify text-base leading-relaxed text-muted">
               {post.excerpt}
             </p>
           )}

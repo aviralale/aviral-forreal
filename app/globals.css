@@ -143,15 +143,45 @@
     border-radius: 1px;
   }
 
-  /* Theme toggle: show the current mode's icon via the <html> theme class. */
+  /* Ease the themed colours rather than snapping when light/dark flips. Both
+     icons and most elements paint with the live CSS vars, so a transition here
+     lets the whole page glide between palettes. Interactive elements keep their
+     own faster `transition-colors` (a class, so higher specificity), and the
+     reduced-motion block below collapses all of this to an instant swap. The
+     blocking next-themes script sets the theme class before first paint, so no
+     transition fires on initial load. */
+  *,
+  *::before,
+  *::after {
+    transition-property: background-color, border-color, color, fill, stroke;
+    transition-duration: 300ms;
+    transition-timing-function: ease;
+  }
+
+  /* Theme toggle: cross-fade and rotate the two icons on switch instead of a
+     hard display swap. Light (the default ground) shows the sun; dark the moon.
+     Both stack in the same grid cell, so only opacity/transform animate. */
+  .theme-icon-sun,
+  .theme-icon-moon {
+    transition:
+      opacity 300ms ease,
+      transform 450ms cubic-bezier(0.4, 0, 0.2, 1);
+  }
   .theme-icon-sun {
-    display: none;
+    opacity: 1;
+    transform: rotate(0deg) scale(1);
   }
-  .light .theme-icon-sun {
-    display: inline;
+  .theme-icon-moon {
+    opacity: 0;
+    transform: rotate(-90deg) scale(0.4);
   }
-  .light .theme-icon-moon {
-    display: none;
+  .dark .theme-icon-sun {
+    opacity: 0;
+    transform: rotate(90deg) scale(0.4);
+  }
+  .dark .theme-icon-moon {
+    opacity: 1;
+    transform: rotate(0deg) scale(1);
   }
 
   @media (prefers-reduced-motion: reduce) {
@@ -425,6 +455,10 @@
 
 .post-body p {
   margin-bottom: 1.5rem;
+  /* Justified like a printed page; auto-hyphenation (html lang="en") keeps the
+     inter-word gaps even rather than rivered. */
+  text-align: justify;
+  hyphens: auto;
   /* Avoid orphans/widows where supported — typeset, not ragged. */
   text-wrap: pretty;
 }

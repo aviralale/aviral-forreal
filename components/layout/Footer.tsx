@@ -1,9 +1,9 @@
-import { Github, Instagram, Twitter } from "lucide-react";
+import { Github, Instagram, Mail } from "lucide-react";
 import { SiteLogo } from "@/components/layout/SiteLogo";
 import { PixelSprite } from "@/components/ui/PixelSprite";
 
 const socials = [
-  { href: "https://twitter.com/aviralale", label: "Twitter", Icon: Twitter },
+  { href: "mailto:abiral@ctrlbits.com", label: "Email", Icon: Mail },
   { href: "https://github.com/aviralale", label: "GitHub", Icon: Github },
   {
     href: "https://instagram.com/aviralale",
@@ -27,18 +27,23 @@ export function Footer() {
         </span>
 
         <div className="mt-5 flex items-center gap-5">
-          {socials.map(({ href, label, Icon }) => (
-            <a
-              key={label}
-              href={href}
-              target="_blank"
-              rel="noreferrer noopener"
-              aria-label={label}
-              className="text-muted transition-colors duration-150 hover:text-accent"
-            >
-              <Icon size={16} />
-            </a>
-          ))}
+          {socials.map(({ href, label, Icon }) => {
+            const external = href.startsWith("http");
+            return (
+              <a
+                key={label}
+                href={href}
+                {...(external && {
+                  target: "_blank",
+                  rel: "noreferrer noopener",
+                })}
+                aria-label={label}
+                className="text-muted transition-colors duration-150 hover:text-accent"
+              >
+                <Icon size={16} />
+              </a>
+            );
+          })}
         </div>
       </div>
     </footer>

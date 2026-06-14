@@ -7,7 +7,7 @@ export const metadata: Metadata = {
 };
 
 const socials = [
-  { href: "https://twitter.com/aviralale", label: "Twitter" },
+  { href: "mailto:abiral@ctrlbits.com", label: "Email" },
   { href: "https://github.com/aviralale", label: "GitHub" },
   { href: "https://instagram.com/aviralale", label: "Instagram" },
 ];
@@ -28,17 +28,22 @@ export default function AboutPage() {
         </div>
 
         <div className="mt-12 flex gap-8">
-          {socials.map((s) => (
-            <a
-              key={s.label}
-              href={s.href}
-              target="_blank"
-              rel="noreferrer noopener"
-              className="smallcaps text-sm text-text underline decoration-accent underline-offset-[5px] transition-colors duration-150 hover:text-accent"
-            >
-              {s.label}
-            </a>
-          ))}
+          {socials.map((s) => {
+            const external = s.href.startsWith("http");
+            return (
+              <a
+                key={s.label}
+                href={s.href}
+                {...(external && {
+                  target: "_blank",
+                  rel: "noreferrer noopener",
+                })}
+                className="smallcaps text-sm text-text underline decoration-accent underline-offset-[5px] transition-colors duration-150 hover:text-accent"
+              >
+                {s.label}
+              </a>
+            );
+          })}
         </div>
       </div>
     </PageWrapper>

@@ -43,7 +43,7 @@ export function FeaturedPost({ post }: { post: PostListItemType }) {
           </h2>
 
           {post.excerpt && (
-            <p className="mt-3 max-w-2xl text-lg leading-relaxed text-muted">
+            <p className="mt-3 max-w-2xl hyphens-auto text-justify text-lg leading-relaxed text-muted">
               {post.excerpt}
             </p>
           )}

@@ -50,7 +50,12 @@ export default async function Home({
           <HeroScene />
         </section>
 
+        {/* Key by the URL filter so the client feed remounts (and re-seeds its
+            state from these fresh server props) when the tag/category changes
+            via navigation — e.g. the "clear" link. Without it React reuses the
+            instance and the useState initializers keep the stale filter. */}
         <HomeFeed
+          key={`${category ?? ""}|${tag ?? ""}`}
           initial={posts}
           categories={categories}
           initialCategory={category}
