@@ -13,7 +13,7 @@ export function SiteLogo({ className, priority }: SiteLogoProps) {
     <Link href="/" className={cn("inline-flex items-center", className)}>
       <Image
         src="/logo.png"
-        alt="Aviral, for real"
+        alt="Aviral, for real — personal blog by Aviral Ale, software developer and writer from Kathmandu, Nepal"
         width={1390}
         height={519}
         priority={priority}

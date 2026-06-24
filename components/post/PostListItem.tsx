@@ -29,7 +29,7 @@ export function PostListItem({
             <div className="relative aspect-[4/3] w-full overflow-hidden">
               <Image
                 src={post.cover_image}
-                alt={post.title}
+                alt={post.category ? `${post.title} — ${post.category.name} by Aviral Ale` : `${post.title} — by Aviral Ale`}
                 fill
                 sizes="(max-width: 640px) 96px, 144px"
                 className="torn-photo object-cover transition-transform duration-300 group-hover:scale-[1.04]"

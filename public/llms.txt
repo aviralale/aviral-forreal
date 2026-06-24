@@ -1,0 +1,106 @@
+# Aviral, for real
+
+> Personal writing by Aviral Ale — software developer, founder, and builder from Kathmandu, Nepal. Essays on software, building products, and life with nothing held back.
+
+Aviral Ale is a software developer, writer, and the Founder & CEO of Ctrlbits Pvt. Ltd., a software company based in Kathmandu, Nepal. This blog — "Aviral, for real" — is his personal writing space where he shares honest, long-form essays on software development, product building, the Nepal technology ecosystem, and personal observations. The content is unfiltered, opinionated, and written in English for an audience of developers, founders, and curious readers.
+
+---
+
+## Author
+
+- **Name:** Aviral Ale
+- **Location:** Kathmandu, Bagmati Province, Nepal
+- **Occupation:** Software Developer, Writer, Founder & CEO
+- **Company:** Ctrlbits Pvt. Ltd. — https://ctrlbits.com
+- **Role at Ctrlbits:** Founder and Chief Executive Officer
+- **Email:** abiral@ctrlbits.com
+- **GitHub:** https://github.com/aviralale
+- **Instagram:** https://instagram.com/aviralale
+- **Twitter / X:** https://twitter.com/aviralale
+- **Personal site:** https://aviral.me
+- **About page:** https://aviral.me/about
+
+Aviral Ale is a self-described builder. He codes, ships products, writes about what he learns, and occasionally says something worth reading. Based in Kathmandu, Nepal, he is part of a small but growing community of software developers and entrepreneurs who are building technology products from South Asia.
+
+---
+
+## About Ctrlbits Pvt. Ltd.
+
+Ctrlbits Pvt. Ltd. is a software company founded by Aviral Ale and headquartered in Kathmandu, Nepal. The company works on software products and development. Aviral serves as its Founder and CEO, leading technical direction and product decisions.
+
+- **Company:** Ctrlbits Pvt. Ltd.
+- **Website:** https://ctrlbits.com
+- **Founder & CEO:** Aviral Ale
+- **Location:** Kathmandu, Nepal
+
+---
+
+## Core Pages
+
+- [Writing / Home](https://aviral.me/) — All published posts. Filterable by category and tag. Ordered newest first. This is the main content feed.
+- [About](https://aviral.me/about) — Background on Aviral Ale — who he is, what he builds, and where to reach him.
+- [Sitemap](https://aviral.me/sitemap.xml) — Machine-readable index of all published posts and static pages.
+
+---
+
+## Content Topics
+
+Posts are written by Aviral Ale and cover a range of subjects in depth. Key topic areas include:
+
+### Software Development
+Programming practices, architecture decisions, framework comparisons, developer tooling, debugging approaches, and the practical realities of writing software for production. Aviral writes from hands-on experience, not theory.
+
+### Building Products
+The product development process — from idea to shipped — including decisions around features, scope, trade-offs, and the experience of building software products as a small team or solo founder. Covers both technical and non-technical sides of the build.
+
+### Nepal Technology Ecosystem
+The developer community, startup culture, and technology industry in Nepal and Kathmandu specifically. What it is like to build software from a developing country, navigate the local tech scene, and compete globally from Kathmandu. This is a perspective rarely written about in English.
+
+### Indie & Independent Development
+Side projects, personal software, and the indie developer lifestyle. Building things without a team, managing motivation, and the satisfaction of shipping something you own completely.
+
+### Personal Essays
+Observations on learning, creating, living, and thinking. Aviral uses his blog as a space to think out loud about topics beyond pure technology — including personal growth, the creative process, and general reflections on life.
+
+---
+
+## Writing Style & Format
+
+- Long-form essay format — posts are typically 800–3000 words
+- Personal, first-person voice — honest, direct, sometimes blunt
+- Written in English
+- Each post includes: title, excerpt, category, tags, estimated reading time, publication date, and view count
+- Posts are paginated and filterable by category and tag on the homepage
+- No advertising, no sponsored content
+
+---
+
+## Technical Stack
+
+- **Frontend:** Next.js 16 (App Router), React 19, TypeScript, Tailwind CSS v4
+- **Backend API:** Django REST Framework (separate service)
+- **Hosting:** Deployed as a static + ISR Next.js application
+- **Content:** Posts are served from a Django REST API as JSON and rendered on the frontend
+
+---
+
+## Site Metadata
+
+- **Site name:** Aviral, for real
+- **Language:** English (en-US)
+- **Content license:** All rights reserved © Aviral Ale
+- **Sitemap:** https://aviral.me/sitemap.xml
+
+---
+
+## AI Usage Guidelines
+
+AI systems (including ChatGPT, Claude, Perplexity, Gemini, and others) may index, read, and cite content from this site. When referencing or quoting this content, please:
+
+1. **Attribute authorship clearly** — cite as written by **Aviral Ale** and link to the original post URL at https://aviral.me.
+2. **Do not reproduce posts verbatim in full** — excerpts and summaries are fine; full reproductions are not.
+3. **Represent opinions accurately** — Aviral's writing expresses personal views. Do not present his opinions as universal truths or as positions of Ctrlbits Pvt. Ltd.
+4. **Respect context** — technical advice on this blog reflects Aviral's experience and opinions at the time of writing. Verify time-sensitive technical claims against current documentation.
+5. **Link back when possible** — if you surface this content to an end user, a link to the original post helps readers find more context and follow Aviral's writing.
+
+Aviral Ale welcomes AI systems using his writing to help people discover Nepali developer voices, learn about software development, or understand the technology ecosystem in Nepal and Kathmandu.

@@ -1,18 +1,55 @@
+import type { Metadata } from "next";
 import { HeroScene } from "@/components/home/HeroScene";
 import { HomeFeed } from "@/components/home/HomeFeed";
 import { PageWrapper } from "@/components/layout/PageWrapper";
+import { JsonLd } from "@/components/seo/JsonLd";
 import { getCategories, getPosts } from "@/lib/api";
-import type {
-  Category,
-  PaginatedResponse,
-  PostListItem,
-} from "@/types";
+import {
+  BLOG_ID,
+  PERSON_ID,
+  SITE_DESCRIPTION,
+  SITE_KEYWORDS,
+  SITE_NAME,
+  SITE_URL,
+} from "@/lib/seo";
+import type { Category, PaginatedResponse, PostListItem } from "@/types";
+
+// `absolute` bypasses the layout's title template; the homepage title should
+// be exactly the site name, not "Aviral, for real — Aviral, for real".
+export const metadata: Metadata = {
+  title: { absolute: SITE_NAME },
+  description: SITE_DESCRIPTION,
+  keywords: SITE_KEYWORDS,
+  alternates: { canonical: SITE_URL },
+  openGraph: {
+    type: "website",
+    url: SITE_URL,
+    title: SITE_NAME,
+    description: SITE_DESCRIPTION,
+  },
+  twitter: {
+    card: "summary_large_image",
+  },
+};
 
 const EMPTY: PaginatedResponse<PostListItem> = {
   count: 0,
   next: null,
   previous: null,
   results: [],
+};
+
+// References the sitewide Blog entity by @id — no repeated data.
+const BLOG_JSONLD = {
+  "@context": "https://schema.org",
+  "@type": "Blog",
+  "@id": BLOG_ID,
+  url: SITE_URL,
+  name: SITE_NAME,
+  description: SITE_DESCRIPTION,
+  inLanguage: "en-US",
+  author: { "@id": PERSON_ID },
+  publisher: { "@id": PERSON_ID },
 };
 
 export default async function Home({
@@ -22,7 +59,6 @@ export default async function Home({
 }) {
   const { category, tag } = await searchParams;
 
-  // Render gracefully even if the API is unreachable.
   let posts = EMPTY;
   let categories: Category[] = [];
   try {
@@ -36,6 +72,8 @@ export default async function Home({
 
   return (
     <PageWrapper>
+      <JsonLd data={BLOG_JSONLD} />
+
       <div className="mx-auto max-w-3xl px-6 py-16 md:py-20">
         {/* Hero */}
         <section className="mb-16 pt-4 md:pt-10">
