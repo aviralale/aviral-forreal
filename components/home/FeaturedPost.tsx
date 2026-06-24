@@ -14,7 +14,7 @@ export function FeaturedPost({ post }: { post: PostListItemType }) {
           <div className="relative aspect-[16/9] w-full overflow-hidden">
             <Image
               src={post.cover_image}
-              alt={post.title}
+              alt={post.category ? `${post.title} — ${post.category.name} by Aviral Ale` : `${post.title} — essay by Aviral Ale, Nepal tech blog`}
               fill
               priority
               sizes="(max-width: 768px) 100vw, 768px"
